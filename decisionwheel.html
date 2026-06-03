@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>✨ Cute Decision Wheel ✨</title>
     <style>
         :root {
@@ -10,7 +10,7 @@
             --card-bg: #ffffff;
             --primary: #4ba3ff;
             --primary-dark: #257ce1;
-            --accent: #ff76a0; /* Cute pink accent for highlights */
+            --accent: #ff76a0;
             --text-color: #2d3748;
             --wheel-border: #334155;
         }
@@ -30,28 +30,35 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             min-height: 100vh;
-            padding: 2rem 1rem;
+            min-height: 100dvh; /* Adaptive height for mobile browser toolbars */
+            padding: 1rem;
         }
 
         .game-card {
-            max-width: 450px;
+            max-width: 440px;
             width: 100%;
             background: var(--card-bg);
-            padding: 2.5rem 2rem;
+            padding: 1.5rem 1rem; /* Compact padding for mobile */
             border-radius: 32px;
             border: 4px solid var(--wheel-border);
             box-shadow: 0 12px 0 var(--wheel-border);
             text-align: center;
             position: relative;
-            transform: translateY(0);
-            transition: transform 0.2s;
+        }
+
+        /* Responsive padding scaling up for larger displays */
+        @media (min-width: 400px) {
+            .game-card {
+                padding: 2.5rem 2rem;
+            }
         }
 
         h1 {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: 800;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.25rem;
             color: var(--primary-dark);
             text-shadow: 2px 2px 0px #cbdff7;
             display: flex;
@@ -63,19 +70,20 @@
         /* Input Controls */
         .input-group {
             display: flex;
-            gap: 12px;
-            margin-bottom: 1.5rem;
+            gap: 10px;
+            margin-bottom: 1.25rem;
         }
 
         input[type="text"] {
             flex: 1;
-            padding: 14px 20px;
+            padding: 12px 16px;
             border: 3px solid var(--wheel-border);
             border-radius: 20px;
-            font-size: 1rem;
+            font-size: 16px; /* Exactly 16px stops iOS from auto-zooming on focus */
             font-weight: 600;
             outline: none;
             box-shadow: inset 0 -4px 0 #edf2f7;
+            width: 100%;
         }
 
         input[type="text"]:focus {
@@ -87,13 +95,14 @@
             background-color: var(--primary);
             color: white;
             border: 3px solid var(--wheel-border);
-            padding: 12px 24px;
+            padding: 12px 20px;
             border-radius: 20px;
             font-size: 1rem;
             font-weight: 700;
             cursor: pointer;
             box-shadow: 0 4px 0 var(--wheel-border);
             transition: all 0.1s ease;
+            white-space: nowrap;
         }
 
         .btn:hover {
@@ -111,23 +120,26 @@
         .item-list {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 2rem;
+            gap: 6px;
+            margin-bottom: 1.5rem;
             justify-content: center;
             min-height: 34px;
+            max-height: 120px;
+            overflow-y: auto; /* Scrollable tags if list gets too crazy */
+            padding: 2px;
         }
 
         .item-tag {
             background-color: #e6f2ff;
             color: var(--primary-dark);
             border: 2px solid var(--wheel-border);
-            padding: 6px 14px;
+            padding: 4px 12px;
             border-radius: 16px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 700;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
@@ -135,19 +147,15 @@
             cursor: pointer;
             font-weight: bold;
             color: var(--accent);
-            transition: transform 0.1s;
         }
 
-        .item-tag span:hover {
-            transform: scale(1.3);
-        }
-
-        /* Wheel Area */
+        /* Responsive Wheel Container */
         .wheel-container {
             position: relative;
-            width: 310px;
-            height: 310px;
-            margin: 0 auto 2.5rem auto;
+            width: 100%;
+            max-width: 290px; /* Safe sizing for narrow screens */
+            aspect-ratio: 1 / 1; /* Forces strict square sizing scaling off width */
+            margin: 0 auto 1.5rem auto;
         }
 
         .wheel-outer-border {
@@ -170,16 +178,15 @@
         /* Cute Pointer */
         .pointer {
             position: absolute;
-            top: -12px;
+            top: -10px;
             left: 50%;
             transform: translateX(-50%);
-            width: 34px;
-            height: 38px;
+            width: 30px;
+            height: 34px;
             background: var(--accent);
             border: 4px solid var(--wheel-border);
             border-radius: 8px 8px 50% 50%;
             z-index: 10;
-            box-shadow: 0 4px 0 rgba(0,0,0,0.1);
         }
 
         /* Center Peg */
@@ -188,8 +195,8 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 24px;
-            height: 24px;
+            width: 20px;
+            height: 20px;
             background: #ffffff;
             border: 4px solid var(--wheel-border);
             border-radius: 50%;
@@ -199,8 +206,8 @@
         /* Big Spin Button */
         .spin-btn {
             width: 100%;
-            padding: 16px;
-            font-size: 1.3rem;
+            padding: 14px;
+            font-size: 1.2rem;
             background-color: var(--accent);
             box-shadow: 0 6px 0 var(--wheel-border);
         }
@@ -214,9 +221,9 @@
 
         /* Result Popup */
         .result-display {
-            margin-top: 1.5rem;
-            min-height: 40px;
-            font-size: 1.5rem;
+            margin-top: 1.25rem;
+            min-height: 36px;
+            font-size: 1.4rem;
             font-weight: 800;
             color: var(--text-color);
         }
@@ -268,13 +275,11 @@
         const itemListDiv = document.getElementById("itemList");
         const resultDisplay = document.getElementById("resultDisplay");
 
-        // Soft pastel game-like palette
         const colors = [
             "#ffccd5", "#ffe3e3", "#d8f3dc", "#b7e4c7", 
             "#c7e2fe", "#e2eefe", "#fde2e4", "#fff1e6"
         ];
 
-        // LOCAL STORAGE: Load items or set fun defaults if empty
         let items = JSON.parse(localStorage.getItem("cuteWheelItems")) || ["Bobalove 🧋", "Sleep 💤", "Gaming 🎮", "Cake 🍰"];
         let currentRotation = 0;
         let isSpinning = false;
@@ -333,21 +338,18 @@
             items.forEach((item, i) => {
                 const angle = i * arc;
                 
-                // Draw Slices
                 ctx.beginPath();
                 ctx.moveTo(centerX, centerY);
                 ctx.arc(centerX, centerY, radius, angle, angle + arc);
                 ctx.fillStyle = colors[i % colors.length];
                 ctx.fill();
                 
-                // Slice Border lines
                 ctx.strokeStyle = "#334155";
                 ctx.lineWidth = 3;
                 ctx.stroke();
 
                 ctx.save();
 
-                // Draw Text / Emojis
                 ctx.translate(
                     centerX + Math.cos(angle + arc / 2) * (radius * 0.62),
                     centerY + Math.sin(angle + arc / 2) * (radius * 0.62)
@@ -359,7 +361,6 @@
                 ctx.textAlign = "center";
                 ctx.textBaseline = "middle";
                 
-                // Truncate text if too long to fit beautifully
                 let cleanText = item.length > 10 ? item.substring(0, 9) + "..." : item;
                 ctx.fillText(cleanText, 0, 0);
                 
@@ -373,7 +374,7 @@
             resultDisplay.textContent = "";
             resultDisplay.classList.remove("bounce-anim");
 
-            const spins = Math.floor(Math.random() * 4) + 6; // 6 to 10 full spins
+            const spins = Math.floor(Math.random() * 4) + 6;
             const degrees = Math.floor(Math.random() * 360);
             
             currentRotation += (spins * 360) + degrees;
@@ -384,8 +385,6 @@
                 
                 const actualRotation = currentRotation % 360;
                 const sliceAngle = 360 / items.length;
-                
-                // Math logic aligns with the top canvas pointer point
                 const winningIndex = Math.floor((360 - actualRotation + 270) % 360 / sliceAngle);
                 
                 resultDisplay.textContent = `⭐ ${items[winningIndex]} ⭐`;
@@ -393,7 +392,6 @@
             }, 4500);
         }
 
-        // Run on initial load
         renderItems();
     </script>
 </body>
