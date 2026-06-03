@@ -30,7 +30,7 @@ If you clear your browser cache or use another device, your lists will reset to 
 
 ## 🌐 The app link
 
-👉 [Click here to use the app](https://coffeemanapp.github.io/decisionwheel/index.html)
+👉 [Click here to use the app](https://coffeemanapp.github.io/decisionwheel/decisionwheel.html)
 
 📲 Add to Home Screen (For Easy Access)
 You can install this app like a native app on your phone! Here's how:  
@@ -89,7 +89,7 @@ Now you can access your quick decision maker easily without opening your browser
 
 ## 🌐 应用链接
 
-👉 [点击这里即可使用](https://coffeemanapp.github.io/decisionwheel/index.html)
+👉 [点击这里即可使用](https://coffeemanapp.github.io/decisionwheel/decisionwheel.html)
 
 ## 📲 添加到手机主屏幕（更方便访问）
 你可以像安装原生应用一样，把它装到手机桌面！方法如下：  
