@@ -241,6 +241,27 @@
             0% { transform: scale(1); }
             100% { transform: scale(1.1); }
         }
+     
+/* Trip.com Advertisement */
+.ad-container {
+    width: 100%;
+    max-width: 468px;
+    min-height: 60px;
+    margin: 24px auto 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.ad-container iframe {
+    display: block;
+    width: 468px;
+    height: 60px;
+    max-width: 100%;
+    border: none;
+}
+
     </style>
 </head>
 <body>
@@ -268,6 +289,19 @@
         <div class="result-display" id="resultDisplay"></div>
     </div>
 
+     <!-- Trip.com Affiliate Advertisement -->
+    <div class="ad-container">
+        <iframe
+            src="https://www.trip.com/partners/ad/DB20485425?Allianceid=3821620&amp;SID=21714802&amp;trip_sub1="
+            width="468"
+            height="60"
+            frameborder="0"
+            scrolling="no"
+            title="Trip.com travel advertisement"
+            id="DB20485425">
+        </iframe>
+    </div>
+    
     <script>
         const canvas = document.getElementById("wheelCanvas");
         const ctx = canvas.getContext("2d");
